@@ -1,8 +1,8 @@
 import json
 import requests
 
-HOST = "localhost"
-PORT = "3000"
+HOST = "ChatGPT_API_HOST"
+PORT = "ChatGPT_API_PORT"
 URL = f"http://{HOST}:{PORT}/conversation"
 
 
