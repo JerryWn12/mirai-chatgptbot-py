@@ -70,7 +70,7 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
                     msg = MessageChain("reseted conversation")
                     await app.send_group_message(target=group, message=msg, quote=source.id)
             else:
-                msg = MessageChain("have no conversation current")
+                msg = MessageChain("no conversation current")
                 await app.send_group_message(target=group, message=msg, quote=source.id)
         with open("conversations.json", mode="w", encoding="UTF-8") as file:
             file.write(json.dumps(convs))
