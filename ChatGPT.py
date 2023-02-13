@@ -1,8 +1,8 @@
 import json
 import requests
 
-HOST = "ChatGPT_API_HOST" # Replace me!
-PORT = "ChatGPT_API_PORT" # Replace me!
+HOST = "ChatGPT_API_HOST"  # Replace me!
+PORT = "ChatGPT_API_PORT"  # Replace me!
 URL = f"http://{HOST}:{PORT}/conversation"
 
 
