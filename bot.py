@@ -29,6 +29,8 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
         if msg_str.startswith("msg "):
             chat_msg = msg_str.removeprefix("msg ")
             convs = {}
+            with open("conversations.json", mode="w", encoding="UTF-8") as file:
+                file.write(json.dumps(convs))
             with open("conversations.json", encoding="UTF-8") as file:
                 convs = json.loads(file.read())
                 member_id_str = str(member.id)
@@ -59,6 +61,8 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
         elif msg_str.startswith("reset"):
             member_id_str = str(member.id)
             convs = {}
+            with open("conversations.json", mode="w", encoding="UTF-8") as file:
+                file.write(json.dumps(convs))
             with open("conversations.json", mode="r", encoding="UTF-8") as file:
                 convs = json.loads(file.read())
                 if member_id_str in convs:
