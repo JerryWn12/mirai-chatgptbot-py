@@ -8,8 +8,6 @@ URL = f"http://{HOST}:{PORT}/conversation"
 
 def chat(msg, conversation_id="", parent_msg_id=""):
 
-    print(conversation_id)
-
     response = requests.post(URL, json={
         "message": msg,
         "conversationId": conversation_id,
