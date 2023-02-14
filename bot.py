@@ -1,7 +1,7 @@
 import json
 
 from graia.ariadne.app import Ariadne
-from graia.ariadne.entry import config
+from graia.ariadne.entry import config as ariadne_config
 from graia.ariadne.message.chain import MessageChain
 from graia.ariadne.message.element import Source
 from graia.ariadne.message.parser.base import DetectPrefix
@@ -18,7 +18,7 @@ ACCOUNT = config["bot"]["account"]
 
 
 app = Ariadne(
-    config(
+    ariadne_config(
         verify_key=VERIFY_KEY,
         account=ACCOUNT,
     ),
