@@ -1,3 +1,5 @@
+import json
+
 from graia.ariadne.app import Ariadne
 from graia.ariadne.entry import config
 from graia.ariadne.message.chain import MessageChain
@@ -7,10 +9,12 @@ from graia.ariadne.model import Member
 from graia.ariadne.model import Group
 
 import ChatGPT
-import json
+import config
 
-VERIFY_KEY = "12345678"  # replace it with your verify key
-ACCOUNT = 12345678  # replace it with your bot number
+config = config()
+
+VERIFY_KEY = config["bot"]["verifyKey"]  # replace it with your verify key
+ACCOUNT = config["bot"]["account"]  # replace it with your bot number
 
 
 app = Ariadne(

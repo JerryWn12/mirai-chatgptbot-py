@@ -1,9 +1,22 @@
 import json
 import requests
+import sys
 
-HOST = "ChatGPT_API_HOST"  # Replace me!
-PORT = "ChatGPT_API_PORT"  # Replace me!
+import config
+
+config = config()
+
+if config is None:
+    sys.exit()
+
+HOST = config["ChatGPT"]["host"]
+PORT = config["ChatGPT"]["port"]
+USESSL = config["ChatGPT"]["useSSL"]
+
 URL = f"http://{HOST}:{PORT}/conversation"
+
+if USESSL:
+    URL = f"https://{HOST}:{PORT}/conversation"
 
 
 def chat(msg, conversation_id="", parent_msg_id=""):

@@ -1,0 +1,11 @@
+{
+  "bot": {
+    "verifyKey": "12345678",
+    "account": "12345678"
+  },
+  "ChatGPT": {
+    "host": "localhost",
+    "port": "3000",
+    "useSSL": "false"
+  }
+}
