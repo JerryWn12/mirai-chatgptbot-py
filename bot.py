@@ -13,8 +13,8 @@ import config
 
 config = config()
 
-VERIFY_KEY = config["bot"]["verifyKey"]  # replace it with your verify key
-ACCOUNT = config["bot"]["account"]  # replace it with your bot number
+VERIFY_KEY = config["bot"]["verifyKey"]
+ACCOUNT = config["bot"]["account"]
 
 
 app = Ariadne(
