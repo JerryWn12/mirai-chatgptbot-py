@@ -4,7 +4,7 @@ import sys
 
 import config
 
-config = config()
+config = config.config()
 
 if config is None:
     sys.exit()

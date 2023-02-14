@@ -11,7 +11,7 @@ from graia.ariadne.model import Group
 import ChatGPT
 import config
 
-config = config()
+config = config.config()
 
 VERIFY_KEY = config["bot"]["verifyKey"]
 ACCOUNT = config["bot"]["account"]
