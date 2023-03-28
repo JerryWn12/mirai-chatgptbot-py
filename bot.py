@@ -36,7 +36,7 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
         member_id = str(member.id)
 
         if member_id not in convs:
-            response = ChatGPT.chat(message)
+            response = ChatGPT.chat("", message)
             if response != None:
                 convs.update({
                     "id": response["id"]
