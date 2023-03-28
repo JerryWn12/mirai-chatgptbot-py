@@ -28,7 +28,7 @@ app = Ariadne(
 @app.broadcast.receiver("GroupMessage", decorators=[DetectPrefix("/chat ")])
 async def chat(group: Group, source: Source, member: Member, message: MessageChain):
 
-    raw = message.as_persistent_string(binary=False, include=(Plain))
+    raw = message.as_persistent_string(binary=False, include=(Plain()))
     message = raw.removeprefix("/chat ")
 
     if len(message) != 0:
