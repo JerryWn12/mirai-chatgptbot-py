@@ -19,13 +19,17 @@ if USESSL:
     URL = f"https://{HOST}:{PORT}/conversation"
 
 
-def chat(msg, conversation_id="", parent_msg_id=""):
-
-    response = requests.post(URL, json={
-        "message": msg,
-        "conversationId": conversation_id,
-        "parentMessageId": parent_msg_id
-    })
+def chat(id, msg):
+    response = ""
+    if id is None:
+        response = requests.post(URL, json={
+            "message": msg,
+        })
+    else:
+        response = requests.post(URL, json={
+            "id": id,
+            "message": msg,
+        })
 
     if response.status_code == 200:
         response_data = json.loads(response.text)
