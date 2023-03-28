@@ -13,10 +13,10 @@ HOST = config["ChatGPT"]["host"]
 PORT = config["ChatGPT"]["port"]
 USESSL = config["ChatGPT"]["useSSL"]
 
-URL = f"http://{HOST}:{PORT}/conversation"
+URL = f"http://{HOST}:{PORT}"
 
 if USESSL:
-    URL = f"https://{HOST}:{PORT}/conversation"
+    URL = f"https://{HOST}:{PORT}"
 
 
 def chat(id, msg):
