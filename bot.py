@@ -1,28 +1,36 @@
-import json
-
 from graia.ariadne.app import Ariadne
 from graia.ariadne.entry import config as ariadne_config
 from graia.ariadne.message.chain import MessageChain
 from graia.ariadne.message.element import Source
-from graia.ariadne.message.element import Plain
 from graia.ariadne.message.parser.base import DetectPrefix
 from graia.ariadne.model import Member
 from graia.ariadne.model import Group
+from graia.ariadne.connection.config import HttpClientConfig
+from graia.ariadne.connection.config import WebsocketClientConfig
 
-import ChatGPT
-import config
+import chatgpt
 
-config = config.config()
+from config import load_config
 
-VERIFY_KEY = config["bot"]["verifyKey"]
+config = load_config()
+
 ACCOUNT = config["bot"]["account"]
+VERIFY_KEY = config["bot"]["verify_key"]
+HTTP_HOST = config["mirai"]["http"]["host"]
+HTTP_PORT = config["mirai"]["http"]["port"]
+WS_HOST = config["mirai"]["ws"]["host"]
+WS_PORT = config["mirai"]["ws"]["port"]
 
 app = Ariadne(
     ariadne_config(
         ACCOUNT,
         VERIFY_KEY,
+        HttpClientConfig(f"http://{HTTP_HOST}:{HTTP_PORT}/"),
+        WebsocketClientConfig(f"http://{WS_HOST}:{WS_PORT}/")
     ),
 )
+
+convs = {}
 
 
 @app.broadcast.receiver("GroupMessage", decorators=[DetectPrefix("/chat ")])
@@ -32,18 +40,17 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
     message = raw.removeprefix("/chat ")
 
     if len(message) != 0:
-        convs = {}
-        member_id = str(member.id)
         print(convs)
+        member_id = str(member.id)
         if member_id not in convs:
-            response = ChatGPT.chat("", message)
+            response = chatgpt.chat("", message)
             if response != None:
-                convs["id"] = response["id"]
+                convs[member_id] = response["id"]
                 response_msg = response["message"]
                 await app.send_group_message(target=group, message=response_msg, quote=source.id)
         else:
             id = convs[member_id]
-            response = ChatGPT.chat(id, message)
+            response = chatgpt.chat(id, message)
             if response != None:
                 response_msg = response["message"]
                 await app.send_group_message(target=group, message=response_msg, quote=source.id)

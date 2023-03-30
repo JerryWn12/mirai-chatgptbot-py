@@ -1,11 +1,20 @@
 {
-  "bot": {
-    "verifyKey": "12345678",
-    "account": "12345678"
+  "mirai": {
+    "http": {
+      "host": "localhost",
+      "port": "8080"
+    },
+    "ws": {
+      "host": "localhost",
+      "port": "8080"
+    }
   },
-  "ChatGPT": {
+  "chatgpt": {
     "host": "localhost",
-    "port": "3000",
-    "useSSL": "false"
+    "port": "3000"
+  },
+  "bot": {
+    "account": "1234567890",
+    "verify_key": "1234567890"
   }
 }

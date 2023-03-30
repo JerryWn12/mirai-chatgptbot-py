@@ -1,22 +1,14 @@
 import json
 import requests
-import sys
 
-import config
+from config import load_config
 
-config = config.config()
+config = load_config()
 
-if config is None:
-    sys.exit()
+HOST = config["chatgpt"]["host"]
+PORT = config["chatgpt"]["port"]
 
-HOST = config["ChatGPT"]["host"]
-PORT = config["ChatGPT"]["port"]
-USESSL = config["ChatGPT"]["useSSL"]
-
-URL = f"http://{HOST}:{PORT}"
-
-if USESSL:
-    URL = f"https://{HOST}:{PORT}"
+URL = f"http://{HOST}:{PORT}/"
 
 
 def chat(id, msg):
@@ -36,4 +28,4 @@ def chat(id, msg):
         return response_data
     else:
         print(json.loads(response.text)["error"])
-        return None
+        exit()
