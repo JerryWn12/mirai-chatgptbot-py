@@ -3,6 +3,7 @@ from graia.ariadne.entry import config as ariadne_config
 from graia.ariadne.message.chain import MessageChain
 from graia.ariadne.message.element import Source
 from graia.ariadne.message.parser.base import DetectPrefix
+from graia.ariadne.message.parser.base import MatchContent
 from graia.ariadne.model import Member
 from graia.ariadne.model import Group
 from graia.ariadne.connection.config import HttpClientConfig
@@ -54,23 +55,15 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
                 response_msg = response["message"]
                 await app.send_group_message(target=group, message=response_msg, quote=source.id)
 
-    # elif len(msg_str) != 0 and msg_str == "reset":
-    #     convs = {}
-    #     with open("conversations.json", mode="w", encoding="UTF-8") as file:
-    #         file.write(json.dumps(convs))
-    #     with open("conversations.json", mode="r", encoding="UTF-8") as file:
-    #         convs = json.loads(file.read())
-    #         member_id_str = str(member.id)
-    #         if member_id_str in convs:
-    #             key = convs.pop(member_id_str, None)
-    #             if key is not None:
-    #                 msg = MessageChain("reseted conversation")
-    #                 await app.send_group_message(target=group, message=msg, quote=source.id)
-    #         else:
-    #             msg = MessageChain("no conversation current")
-    #             await app.send_group_message(target=group, message=msg, quote=source.id)
-    #     with open("conversations.json", mode="w", encoding="UTF-8") as file:
-    #         file.write(json.dumps(convs))
 
+@app.broadcast.receiver("GroupMessage", decorators=[MatchContent("/reset")])
+async def reset(group: Group, source: Source, member: Member):
+
+    member_id = str(member.id)
+    if member_id in convs:
+        convs.pop(member_id)
+        await app.send_group_message(target=group, message="reset success", quote=source.id)
+    else:
+        await app.send_group_message(target=group, message="no conversation yet", quote=source.id)
 
 app.launch_blocking()
