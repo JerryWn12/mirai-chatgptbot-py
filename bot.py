@@ -40,7 +40,6 @@ async def chat(group: Group, source: Source, member: Member, message: MessageCha
     message = raw.removeprefix("/chat ")
 
     if len(message) != 0:
-        print(convs)
         member_id = str(member.id)
         if member_id not in convs:
             response = chatgpt.chat("", message)
