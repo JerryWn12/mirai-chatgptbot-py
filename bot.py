@@ -66,4 +66,6 @@ async def reset(group: Group, source: Source, member: Member):
     else:
         await app.send_group_message(target=group, message="当前无对话", quote=source.id)
 
+# git test
+
 app.launch_blocking()
