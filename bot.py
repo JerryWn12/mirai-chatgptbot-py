@@ -62,8 +62,8 @@ async def reset(group: Group, source: Source, member: Member):
     member_id = str(member.id)
     if member_id in convs:
         convs.pop(member_id)
-        await app.send_group_message(target=group, message="reset success", quote=source.id)
+        await app.send_group_message(target=group, message="已重置对话", quote=source.id)
     else:
-        await app.send_group_message(target=group, message="no conversation yet", quote=source.id)
+        await app.send_group_message(target=group, message="当前无对话", quote=source.id)
 
 app.launch_blocking()
