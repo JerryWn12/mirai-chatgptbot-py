@@ -1,3 +1,5 @@
+import chatgpt
+
 from graia.ariadne.app import Ariadne
 from graia.ariadne.entry import config as ariadne_config
 from graia.ariadne.message.chain import MessageChain
@@ -9,10 +11,9 @@ from graia.ariadne.model import Group
 from graia.ariadne.connection.config import HttpClientConfig
 from graia.ariadne.connection.config import WebsocketClientConfig
 
-import chatgpt
-
 from config import load_config
 
+convs = {}
 config = load_config()
 
 ACCOUNT = config["bot"]["account"]
@@ -27,11 +28,9 @@ app = Ariadne(
         ACCOUNT,
         VERIFY_KEY,
         HttpClientConfig(f"http://{HTTP_HOST}:{HTTP_PORT}/"),
-        WebsocketClientConfig(f"http://{WS_HOST}:{WS_PORT}/")
+        WebsocketClientConfig(f"ws://{WS_HOST}:{WS_PORT}/")
     ),
 )
-
-convs = {}
 
 
 @app.broadcast.receiver("GroupMessage", decorators=[DetectPrefix("/chat ")])
